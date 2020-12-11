@@ -1,5 +1,4 @@
-
-
+update_enemy();
 
 function update_enemy()
     x = rand(1)*1240;
