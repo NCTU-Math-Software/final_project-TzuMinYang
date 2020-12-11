@@ -29,3 +29,19 @@
 * 檔案：plot_win_picture.m
 
 * 測試檔案：win_photo.jpg
+
+### 更新敵人位置
+
+* 功能：本畫出更新敵人位置後的遊戲畫面 (本程式的xy以座標軸的xy為準)
+
+* 檔案：update_enemy.m
+
+* 測試檔案：無
+
+### 隨機生成敵人
+
+* 功能：可隨機產生敵人的位置，並將他畫出來 (本程式的xy以座標軸的xy為準)
+
+* 檔案：random_generate_enemy.m , update_enemy.m (本程式需搭配update_enemy.m才能使用)
+
+* 測試檔案：無
