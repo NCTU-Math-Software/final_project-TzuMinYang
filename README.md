@@ -2,6 +2,8 @@
 
 我想做Project 7-遊戲的5.射擊遊戲
 
+我使用網路上查到的程式，來源是：https://blog.csdn.net/slandarer/article/details/88025006?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control
+
 
 
 # 以下是舊的資料，先不用管
