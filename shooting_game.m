@@ -29,9 +29,6 @@ function shooting_game()
     global generate_enemy_timer
     global generate_bullet_timer
     
-    global current_picture
-    
-    
     ourself_pic=imread("ourself.png");    
     ourself_pos=[1130,345];
     ourself_size=[128,78];
@@ -161,7 +158,7 @@ function shooting_game()
         quit=1;
     end
 
-    function kpfun(~,event) %
+    function kpfun(~,event)
         switch event.Key
             case 'leftarrow'
                 move_ourself("left");
