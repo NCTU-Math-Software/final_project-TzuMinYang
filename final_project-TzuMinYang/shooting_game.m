@@ -43,7 +43,7 @@ function shooting_game()
     bullet_pic=imread("bullet.png");  
     bullet_pos=[];
     bullet_size=[50,50];
-    bullet_speed=10;
+    bullet_speed=13;
     
     our_grade=0;
 
@@ -60,6 +60,7 @@ function shooting_game()
     while(true)        
         hold on;
         
+        % timer
         current_toc=toc;
         if(current_toc-previous_toc>=0.01)
             generate_enemy_timer=generate_enemy_timer+current_toc-previous_toc;
@@ -71,12 +72,13 @@ function shooting_game()
             previous_toc=toc;
         end
         
-        % 下面這些可能要放到上面的if裡
+        % move, fire, escape
         set(gcf,'KeyPressFcn',@kpfun);
         if(quit==1) 
             return;
         end
 
+        % update picture
         image_current_picture();
         
     end
@@ -85,13 +87,13 @@ function shooting_game()
     
     function image_current_picture()
         current_picture=zeros(1280,780,3);
-        current_picture(enemy_limit_move_range+130:enemy_limit_move_range+130+10,1:780,1)=ones(11,780)*255;
+        current_picture(floor(enemy_limit_move_range+130):floor(enemy_limit_move_range+130+10),1:780,1)=ones(11,780)*255;
         
-        current_picture(ourself_pos(1):ourself_pos(1)+ourself_size(1)-1,ourself_pos(2):ourself_pos(2)+ourself_size(2)-1,:)=ourself_pic;
+        current_picture(floor(ourself_pos(1)):floor(ourself_pos(1)+ourself_size(1)-1),floor(ourself_pos(2)):floor(ourself_pos(2)+ourself_size(2)-1),:)=ourself_pic;
         
         if(size(enemy_pos,2)>0)
             for ii=1:2:size(enemy_pos,2)
-                current_picture(enemy_pos(ii):enemy_pos(ii)+enemy_size(1)-1,enemy_pos(ii+1):enemy_pos(ii+1)+enemy_size(2)-1,:)=enemy_pic;
+                current_picture(floor(enemy_pos(ii)):floor(enemy_pos(ii)+enemy_size(1)-1),floor(enemy_pos(ii+1)):floor(enemy_pos(ii+1)+enemy_size(2)-1),:)=enemy_pic;
             end
         end
         
@@ -148,19 +150,22 @@ function shooting_game()
         end
     end
 
-    function GameOver() %還沒寫
-        
+    function GameOver() 
+        GameOver=imread("GameOver.png");
+        imshow(GameOver);
+        pause(3);
+        Quit_game();
     end
 
 
-    function move_bullet() %判斷現在這個子彈有沒有打到現在這個敵人還沒寫
+    function move_bullet() 
         for ii=1:2:size(bullet_pos,2)
             bullet_pos(ii)=bullet_pos(ii)-bullet_speed;
             if(bullet_pos(ii)<=50)
                 bullet_to_delete_index=[bullet_to_delete_index,ii];
             else
                 for jj=1:2:size(enemy_pos,2)
-                    if(false) %判斷現在這個子彈有沒有打到現在這個敵人
+                    if((bullet_pos(ii)>=enemy_pos(jj)&&bullet_pos(ii)<=enemy_pos(jj)+enemy_size(1)||bullet_pos(ii)+bullet_size(1)>=enemy_pos(jj)&&bullet_pos(ii)+bullet_size(1)<=enemy_pos(jj)+enemy_size(1))&&(bullet_pos(ii+1)>=enemy_pos(jj+1)&&bullet_pos(ii+1)<=enemy_pos(jj+1)+enemy_size(2)||bullet_pos(ii+1)+bullet_size(2)>=enemy_pos(jj+1)&&bullet_pos(ii+1)+bullet_size(2)<=enemy_pos(jj+1)+enemy_size(2)))
                         our_grade=our_grade+1;
                         bullet_to_delete_index=[bullet_to_delete_index,ii];
                         enemy_to_delete_index=[enemy_to_delete_index,jj];
@@ -199,12 +204,15 @@ function shooting_game()
         end
     end
 
-    function YouWin() %還沒寫
-        
+    function YouWin() 
+        YouWin=imread("YouWin.png");
+        imshow(YouWin);
+        pause(3);
+        Quit_game();
     end
 
     
-    function choose_difficulty() %可考慮改用物件
+    function choose_difficulty() % 可考慮改用物件
         Difficulty=imread("difficulty.png");
         imshow(Difficulty);
         axis image;
@@ -221,17 +229,17 @@ function shooting_game()
                 Quit_game();
             end 
 
-            %設定不同難度的參數
-            if(X>=254&&X<=530&&Y>=337&&Y<=441)
-                enemy_generate_time=3;
+            % different difficulty
+            if(X>=254&&X<=530&&Y>=337&&Y<=441) % easy
+                enemy_generate_time=4;
                 win_grade=10;
                 break;
-            elseif(X>=254&&X<=530&&Y>=650&&Y<=755)
-                enemy_generate_time=2.5;
+            elseif(X>=254&&X<=530&&Y>=650&&Y<=755) % normal
+                enemy_generate_time=3.5;
                 win_grade=20;
                 break;
-            elseif(X>=254&&X<=530&&Y>=068&&Y<=1064)
-                enemy_generate_time=2;
+            elseif(X>=254&&X<=530&&Y>=068&&Y<=1064) % difficult
+                enemy_generate_time=3;
                 win_grade=30;
                 break;
             end
@@ -270,9 +278,9 @@ function shooting_game()
         end
     end
 
-    function fire_bullet() %參數可能要調
+    function fire_bullet() % 參數可能要調
         if(generate_bullet_timer>=1)
-            bullet_pos=[bullet_pos,ourself_pos(1)-75,ourself_pos(2)+13];  %參數可能要調
+            bullet_pos=[bullet_pos,ourself_pos(1)-75,ourself_pos(2)+13];  % 參數可能要調
             generate_bullet_timer=0;
         end
     end
