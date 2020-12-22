@@ -1,5 +1,3 @@
-# final_project-TzuMinYang
-
 # 射擊遊戲 shooting game
 
 ## 如何開始玩
