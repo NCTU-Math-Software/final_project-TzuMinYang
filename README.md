@@ -34,13 +34,12 @@
     |   其他   | 不會有反應 |
 
     * 不同難度影響內容如下
-    
-    
+       
     |           | 產生敵人間隔時間 (s) | 敵人移動速度 (每0.1秒移動的像素) | 需擊殺敵人數量 |
     |:---------:|:----------------------:|:----------------------------------:|:--------------:|
-    |   Easy    |           4            |                 6                  |       6        |
-    |  Normal   |          3.5           |                 8                  |       12       |
-    | Difficult |           3            |                 10                 |       18       |
+    |   Easy    |           2            |                 10                  |       15        |
+    |  Normal   |          1.5           |                 15                  |       25       |
+    | Difficult |           1            |                 20                 |       35       |
     
 2. 開始進行遊戲，直到達成勝利條件或失敗條件或按下ESC
     * 達成勝利條件後會show出「You Win!」持續1.5秒，然後結束遊戲
@@ -60,9 +59,10 @@
 
 
 ## 已知問題
-* 當遊戲進行一陣子後，會變得越來越LAG
-    * 已和助教、教授討論過了，助教和教授都認為LAG沒關係
-    * 有請助教幫忙看程式碼，找不到什麼可以優化的地方
+* ~~當遊戲進行一陣子後，會變得越來越LAG~~
+    * ~~已和助教、教授討論過了，助教和教授都認為LAG沒關係~~
+    * ~~有請助教幫忙看程式碼，找不到什麼可以優化的地方~~
+    * 已解決，是因為hold on，所以畫的圖一直疊上去，造成記憶體占用過大
 
 ## Reference
 1. [參考他的遊戲設計，程式內容完全無關](https://blog.csdn.net/slandarer/article/details/88025006?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control)
