@@ -29,6 +29,9 @@ function shooting_game()
     global generate_enemy_timer
     global generate_bullet_timer
     
+    global current_picture
+    
+    
     ourself_pic=imread("ourself.png");    
     ourself_pos=[1130,345];
     ourself_size=[128,78];
@@ -38,13 +41,12 @@ function shooting_game()
     enemy_pic=imread("mid_enemy.png");    
     enemy_pos=[];
     enemy_size=[128,98];
-    enemy_speed=6;
     enemy_limit_move_range=980;
     
     bullet_pic=imread("bullet.png");  
     bullet_pos=[];
     bullet_size=[50,50];
-    bullet_speed=13;
+    bullet_speed=24;
     
     our_grade=0;
 
@@ -53,7 +55,6 @@ function shooting_game()
     generate_enemy_timer=2;
     generate_bullet_timer=5;
     
-    hold on;
     choose_difficulty();
     
     tic;
@@ -67,8 +68,8 @@ function shooting_game()
             
             move_enemy();
             move_bullet();
-            generate_enemy_timer=generate_enemy_timer+toc-previous_toc;
-            generate_bullet_timer=generate_bullet_timer+toc-previous_toc;
+            generate_enemy_timer=generate_enemy_timer+current_toc-previous_toc;
+            generate_bullet_timer=generate_bullet_timer+current_toc-previous_toc;
             generate_enemy();
             
             previous_toc=toc;
@@ -83,6 +84,7 @@ function shooting_game()
         end
 
         % update picture
+        hold off;
         image_current_picture();
         
     end
@@ -109,19 +111,19 @@ function shooting_game()
 
             % difference of different difficulty are enemy_generate_time and win_grade
             if(X>=254&&X<=530&&Y>=337&&Y<=441) % easy
-                enemy_generate_time=4;
-                enemy_speed=6;
-                win_grade=6;
+                enemy_generate_time=2;
+                enemy_speed=10;
+                win_grade=15;
                 break;
             elseif(X>=254&&X<=530&&Y>=650&&Y<=755) % normal
-                enemy_generate_time=3.5;
-                enemy_speed=8;
-                win_grade=12;
+                enemy_generate_time=1.5;
+                enemy_speed=15;
+                win_grade=25;
                 break;
             elseif(X>=254&&X<=530&&Y>=068&&Y<=1064) % difficult
-                enemy_generate_time=3;
-                enemy_speed=10;
-                win_grade=18;
+                enemy_generate_time=1;
+                enemy_speed=20;
+                win_grade=35;
                 break;
             end
         end
@@ -159,7 +161,7 @@ function shooting_game()
         quit=1;
     end
 
-    function kpfun(~,event)
+    function kpfun(~,event) %
         switch event.Key
             case 'leftarrow'
                 move_ourself("left");
@@ -185,7 +187,7 @@ function shooting_game()
         end
     end
     function fire_bullet() 
-        if(generate_bullet_timer>=1)
+        if(generate_bullet_timer>=0.5)
             bullet_pos=[bullet_pos,ourself_pos(1)-75,ourself_pos(2)+13];  % -75,+13 make the bullet fire from the middle of us
             generate_bullet_timer=0;
         end
@@ -287,5 +289,4 @@ function shooting_game()
         pause(1.5);
         Quit_game();
     end
-
 end
